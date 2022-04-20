@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home" />
+     <item
+    android:id="@+id/tab_graph"
+         android:icon="@drawable/ic_baseline_bar_chart_24"
+    android:title="Graph" />
+    <item
+        android:id="@+id/tab_goal"
+        android:icon="@drawable/ic_baseline_checklist_24"
+        android:title="Goal" />
+
+    <item
+        android:id="@+id/tab_gtask"
+        android:icon="@drawable/ic_baseline_add_task_24"
+
+        android:title="G.Task" />
+</menu>
