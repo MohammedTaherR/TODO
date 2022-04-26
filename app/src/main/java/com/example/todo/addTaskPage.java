@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.icu.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -54,17 +56,13 @@ Button save;
       Datetxt=findViewById(R.id.textView12);
       timetxt=findViewById(R.id.textView14);
 
-      String task_name= Taskname.getText().toString();
-      String init_val= initial.getText().toString();
-      String max_val= max.getText().toString();
-save= findViewById(R.id.button2);
+
+      save= findViewById(R.id.button2);
       Calendar calendar= Calendar.getInstance();
       final  int year =     calendar.get(calendar.YEAR);
-        final  int month =     calendar.get(calendar.MONTH);
+      final  int month =     calendar.get(calendar.MONTH);
+      final  int day =     calendar.get(calendar.DAY_OF_MONTH);
 
-        final  int day =     calendar.get(calendar.DAY_OF_MONTH);
-      // String selectedGoal= goals.getSelectedItem().toString();
-        String selectedGoal= "";
       Datetxt.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
@@ -79,6 +77,7 @@ datePickerDialog.show();
               month=month+1;
               String date = dayOfMonth+"/"+month+"/"+year;
               Datetxt.setText(date);
+
           }
       };
       timetxt.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +95,11 @@ datePickerDialog.show();
                           SimpleDateFormat f12hours= new SimpleDateFormat("hh:mm aa");
                           timetxt.setText(f12hours.format(date));
 
+
                       } catch (ParseException e) {
                           e.printStackTrace();
                       }
+
 
                   }
               },12,0,false);
@@ -107,14 +108,25 @@ datePickerDialog.show();
 
           }
       });
-String DueTime=timetxt.getText().toString();
-String DueDate= Datetxt.getText().toString();
+
+
 
 save.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        db.addlist(task_name,selectedGoal,DueTime,init_val,max_val,DueDate);
+        Intent intent = new Intent(addTaskPage.this, MainActivity.class);
+        String DueDate= Datetxt.getText().toString();
+        String DueTime=timetxt.getText().toString();
+        String task_name= Taskname.getText().toString();
+        // String selectedGoal= goals.getSelectedItem().toString();
+        String selectedGoal= "";
+        String init_val= initial.getText().toString();
+        String max_val= max.getText().toString();
+        db.addlist(task_name, selectedGoal, DueTime, init_val, max_val, DueDate);
+        Log.d("DB",task_name+selectedGoal+DueTime+init_val+max_val+DueDate);
         Toast.makeText(addTaskPage.this, "successfully added", Toast.LENGTH_SHORT).show();
+
+        startActivity(intent);
     }
 });
 
