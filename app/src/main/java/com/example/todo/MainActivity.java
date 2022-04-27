@@ -55,7 +55,7 @@ listView= findViewById(R.id.listView);
 //            date.add(res.getString(5));
          ad.notifyDataSetChanged();
         }
-
+// onclick to show delete or increment
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
