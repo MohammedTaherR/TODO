@@ -58,6 +58,14 @@ listView= findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent= new Intent(MainActivity.this,update_page.class);
+
+                intent.putExtra("taskname", task_name.get(position));
+                intent.putExtra("time",time.get(position));
+                intent.putExtra("Goal",goal_name.get(position));
+
+
+                startActivity(intent);
                 Toast.makeText(MainActivity.this, "You can change your Task here", Toast.LENGTH_SHORT).show();
             }
         });
