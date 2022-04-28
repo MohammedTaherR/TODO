@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
 ListView listView;
 
 
-    ArrayList<String> time;
-    ArrayList<String> task_name;
-    ArrayList<String> goal_name;
-    ArrayList<String> p_min;
-    ArrayList<String> p_max;
-    ArrayList<String> date;
+    ArrayList<String> time= new ArrayList<>();
+    ArrayList<String> task_name=new ArrayList<>();
+    ArrayList<String> goal_name=new ArrayList<>();
+  int p_min=0;
+    ArrayList<String> p_max=new ArrayList<>();
+//    ArrayList<String> date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,30 @@ ListView listView;
         setContentView(R.layout.activity_main);
 listView= findViewById(R.id.listView);
         add = findViewById(R.id.addTask);
+      time.add("4");
+        time.add("4");
 
+        task_name.add("shopping");
+        task_name.add("shopping");
+
+//
+        goal_name.add("dine");
+        goal_name.add("dine");
+
+//
+
+        p_max.add("4");
+        p_max.add("4");
+////
+//
+//        date.add("5");
+//        date.add("5");
+//        date.add("5");
+//        date.add("5");
+//        date.add("5");
+
+        myAdapter ad = new myAdapter(this,task_name,goal_name,time,p_max);
+        listView.setAdapter(ad);
         dbhandler db = new dbhandler(MainActivity.this);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +66,7 @@ listView= findViewById(R.id.listView);
                 startActivity(intent);
             }
         });
-        myAdapter ad = new myAdapter(this,task_name,goal_name,time,p_min,p_max);
-        listView.setAdapter(ad);
+
         Cursor res = db.getdata();
         while (res.moveToNext()) {
 //            task_name.add(res.getString(0));
@@ -53,7 +75,7 @@ listView= findViewById(R.id.listView);
 //            p_min.add(res.getString(3));
 //            p_max.add(res.getString(4));
 //            date.add(res.getString(5));
-         ad.notifyDataSetChanged();
+       // ad.notifyDataSetChanged();
         }
 // onclick to show delete or increment
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
