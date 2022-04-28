@@ -120,7 +120,7 @@ save.setOnClickListener(new View.OnClickListener() {
         String task_name= Taskname.getText().toString();
         // String selectedGoal= goals.getSelectedItem().toString();
         String selectedGoal= "";
-        String init_val= initial.getText().toString();
+        String init_val= String.valueOf(0);
         String max_val= max.getText().toString();
         db.addlist(task_name, selectedGoal, DueTime, init_val, max_val, DueDate);
         Log.d("DB",task_name+selectedGoal+DueTime+init_val+max_val+DueDate);

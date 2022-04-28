@@ -39,6 +39,12 @@ public class dbhandler extends SQLiteOpenHelper {
             return true;
         }
     }
+    public Cursor getdata (){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor=db.rawQuery("SELECT * FROM todoTable" ,null);
+        return  cursor;
+    }
+
     public void delete(String title) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("todoTable", "Taskname=?", new String[]{title});
@@ -56,17 +62,13 @@ public class dbhandler extends SQLiteOpenHelper {
         db.update("todoTable", values, "Taskname = ?", new String[]{Taskname});
         return true;
     }
-    public boolean IncrementOrDecrement(String Taskname, String progressInit, String progressFinal) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("progressInit", progressInit);
-        values.put("progressFinal", progressFinal);
-        db.update("todoTable", values, "Taskname = ?", new String[]{Taskname});
-        return  true;
-    }
-    public Cursor getdata (){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT * FROM todoTable" ,null);
-        return  cursor;
-    }
+    //public boolean IncrementOrDecrement(String Taskname, String progressInit, String progressFinal) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("progressInit", progressInit);
+//        values.put("progressFinal", progressFinal);
+//        db.update("todoTable", values, "Taskname = ?", new String[]{Taskname});
+//        return  true;
+//    }
+
 }

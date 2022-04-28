@@ -9,6 +9,7 @@ import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,20 +22,21 @@ public class MainActivity extends AppCompatActivity {
 ListView listView;
 
 
-    ArrayList<String> time;
-    ArrayList<String> task_name;
-    ArrayList<String> goal_name;
-    ArrayList<String> p_min;
-    ArrayList<String> p_max;
-    ArrayList<String> date;
-
+    ArrayList<String> time= new ArrayList<>();
+    ArrayList<String> task_name=new ArrayList<>();
+    ArrayList<String> goal_name=new ArrayList<>();
+    ArrayList<String> p_max=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 listView= findViewById(R.id.listView);
         add = findViewById(R.id.addTask);
-
+//
+        myAdapter ad = new myAdapter(MainActivity.this,task_name,goal_name,time,p_max);
+        listView.setAdapter(ad);
+//        ArrayAdapter ad= new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1,time);
+//        listView.setAdapter(ad);
         dbhandler db = new dbhandler(MainActivity.this);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,17 +45,14 @@ listView= findViewById(R.id.listView);
                 startActivity(intent);
             }
         });
-        myAdapter ad = new myAdapter(this,task_name,goal_name,time,p_min,p_max);
-        listView.setAdapter(ad);
+
         Cursor res = db.getdata();
         while (res.moveToNext()) {
-//            task_name.add(res.getString(0));
-//            goal_name.add(res.getString(1));
-//            time.add(res.getString(2));
-//            p_min.add(res.getString(3));
-//            p_max.add(res.getString(4));
-//            date.add(res.getString(5));
-         ad.notifyDataSetChanged();
+            task_name.add(res.getString(0));
+            goal_name.add(res.getString(1));
+        time.add(res.getString(2));
+            p_max.add(res.getString(4));
+        ad.notifyDataSetChanged();
         }
 // onclick to show delete or increment
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
