@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ public class update_page extends AppCompatActivity {
     TextView intentTask,IntentGoal,IntentTime;
     ProgressBar intentProgress;
     dbhandler db= new dbhandler(this);
+    Button back,add,minus,delete,update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +28,56 @@ public class update_page extends AppCompatActivity {
         String intent_taskname= intent.getStringExtra("taskname");
         String intent_time=intent.getStringExtra("time");
         String intent_goal =intent.getStringExtra("Goal");
-
-        IntentTime.setText(intent_time);
+       String intent_progressMin=intent.getStringExtra("Progressmin");
+       String intent_progressmax= intent.getStringExtra("Progressmax");
+        String intent_date= intent.getStringExtra("date");
+       IntentTime.setText(intent_time);
 IntentGoal.setText(intent_goal);
 intentTask.setText(intent_taskname);
+back= findViewById(R.id.button);
+add=findViewById(R.id.button3);
+minus=findViewById(R.id.button4);
+update=findViewById(R.id.button5);
+delete=findViewById(R.id.button6);
+
+delete.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        db.delete(intent_taskname);
+        Intent i = new Intent(update_page.this,MainActivity.class);
+        startActivity(i);
+    }
+});
+update.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent update_text= new Intent(update_page.this,update_text_page.class);
+        startActivity(update_text);
+    }
+});
+add.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        Integer adding= Integer.valueOf(intent_progressMin);
+        int added=adding+1;
+        intentProgress.setProgress(adding);
+        db.update(intent_taskname,intent_goal,intent_time, String.valueOf(added),intent_progressmax,intent_date);
+
+    }
+});
+
+minus.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Integer subtracting= Integer.valueOf(intent_progressMin );
+        int sub= subtracting-1;
+        intentProgress.setProgress(sub);
+        db.update(intent_taskname,intent_goal,intent_time, String.valueOf(sub),intent_progressmax,intent_date);
 
 
+    }
+});
 
 
     }

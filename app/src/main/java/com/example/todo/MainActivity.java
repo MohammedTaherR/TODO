@@ -20,23 +20,22 @@ public class MainActivity extends AppCompatActivity {
 
     Button add;
 ListView listView;
-
+int p_min=0;
 
     ArrayList<String> time= new ArrayList<>();
     ArrayList<String> task_name=new ArrayList<>();
     ArrayList<String> goal_name=new ArrayList<>();
     ArrayList<String> p_max=new ArrayList<>();
+    ArrayList<String> date= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 listView= findViewById(R.id.listView);
         add = findViewById(R.id.addTask);
-//
         myAdapter ad = new myAdapter(MainActivity.this,task_name,goal_name,time,p_max);
         listView.setAdapter(ad);
-//        ArrayAdapter ad= new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1,time);
-//        listView.setAdapter(ad);
+
         dbhandler db = new dbhandler(MainActivity.this);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +62,12 @@ listView= findViewById(R.id.listView);
                 intent.putExtra("taskname", task_name.get(position));
                 intent.putExtra("time",time.get(position));
                 intent.putExtra("Goal",goal_name.get(position));
+                intent.putExtra("Progressmin",p_min);
+                intent.putExtra("Progressmax",p_max);
+                intent.putExtra("date",date);
+
+
+
 
 
                 startActivity(intent);
